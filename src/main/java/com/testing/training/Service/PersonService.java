@@ -1,8 +1,8 @@
-package Service;
+package com.testing.training.Service;
 
 
-import Repository.PersonRepository;
-import entity.Person;
+import com.testing.training.Repository.PersonRepository;
+import com.testing.training.entity.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,11 @@ import java.util.List;
 public class PersonService {
 
     @Autowired
-    PersonRepository personRepository;
+    private final PersonRepository personRepository;
+
+    public PersonService(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
 
     public List<Person> getAllPeople() {
         List<Person> people = new ArrayList<>();
@@ -24,19 +28,20 @@ public class PersonService {
         return people;
     }
 
-public Person getPersonById(int id){
+    public Person getPersonById(int id) {
 //        return personRepository.getById(id);
     return personRepository.findById(id).get(); //need to add logic for not existing id
-}
+    }
+
     public void savePerson(Person person) {
         personRepository.save(person);
     }
 
-    public void deletePerson(int id){
+    public void deletePerson(int id) {
         personRepository.deleteById(id);
     }
 
-    public void updatePerson(Person person, int id){
+    public void updatePerson(Person person, int id) {
         personRepository.save(person);
     }
 
